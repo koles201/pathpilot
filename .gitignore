@@ -1,0 +1,77 @@
+# # # General & OS-specific # # #
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+*.pem
+
+
+# # # IDEs & Editors # # #
+# Visual Studio / Rider
+.vs/
+*.suo
+*.user
+
+# Visual Studio Code
+.vscode/
+
+# JetBrains IDEs (WebStorm, Rider, etc.)
+.idea/
+
+
+# # # Backend: .NET / C# # # #
+# Folders generated during the build process.
+# The double asterisk (**) means the rule applies in any subfolder.
+**/[Bb]in/
+**/[Oo]bj/
+
+# Local configuration files that might contain secrets
+appsettings.Development.json
+*.secrets.json
+
+
+# # # Frontend: Node.js / Next.js # # #
+
+# Dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# Yarn PnP files - ignore everything in the .yarn folder except for a few key files
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Testing
+/coverage
+
+# Next.js build output
+/.next/
+/out/
+
+# Production builds
+/build
+/dist
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Local environment variables
+.env*
+!.env.example
+
+# Vercel
+.vercel
