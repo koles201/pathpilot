@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pathpilot.Application.Interfaces.Persistence;
 using Pathpilot.Domain.Entities;
 
 namespace Pathpilot.Infrastructure.Persistence
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext, IApplicationDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

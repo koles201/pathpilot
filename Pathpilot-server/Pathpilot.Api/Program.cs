@@ -1,6 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 using Pathpilot.Infrastructure.Persistence;
+using Pathpilot.Application.Interfaces.Persistence;
 
 namespace Pathpilot.Api
 {
@@ -17,8 +18,10 @@ namespace Pathpilot.Api
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddMediatR(cfg =>
+                cfg.RegisterServicesFromAssembly(typeof(Application.AssemblyReference).Assembly));
 
             var app = builder.Build();
 
