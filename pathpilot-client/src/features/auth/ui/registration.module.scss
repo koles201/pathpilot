@@ -8,9 +8,6 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-.formGroup {
-  margin-bottom: 1.2rem;
-}
 
 .label {
   display: block;
@@ -27,11 +24,6 @@
   font-size: 1rem;
 }
 
-.checkboxContainer {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
 
 .submitButton {
   width: 100%;
@@ -47,4 +39,11 @@
 
 .submitButton:hover {
   background-color: #0059c1;
+}
+
+.errorMassage{
+  font-size: 0.875rem;
+  color: #cc1439;
+  white-space: nowrap;
+  position: relative;
 }

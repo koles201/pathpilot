@@ -7,7 +7,7 @@ export type FormField = {
 export const useSignupFields = () => {
   const fields: FormField[] = [
     { name: "userName", label: "Username", type: "text" },
-    { name: "email", label: "Email", type: "email" },
+    { name: "email", label: "Email", type: "text" },
     { name: "password", label: "Password", type: "password" },
     {
       name: "passwordConfirmation",
