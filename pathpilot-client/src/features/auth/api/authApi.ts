@@ -1,5 +1,5 @@
 import { pathpilotApi } from "@/src/shared/api/pathpilotApi"
-import { RegisterRequest } from "@/src/features/auth/api/authApi.types"
+import { LoginRequest, RegisterRequest } from "@/src/features/auth/api/authApi.types"
 
 export const authApi = pathpilotApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,7 +10,14 @@ export const authApi = pathpilotApi.injectEndpoints({
         body,
       }),
     }),
+    login: builder.mutation<void, LoginRequest>({
+      query: (body) => ({
+        url: "auth/login",
+        method: "POST",
+        body,
+      }),
+    }),
   }),
 })
 
-export const { useRegisterMutation } = authApi
+export const { useRegisterMutation, useLoginMutation } = authApi

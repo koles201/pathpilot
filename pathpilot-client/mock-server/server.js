@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-require-imports
 const jsonServer = require("json-server")
 
 const server = jsonServer.create()
@@ -9,6 +10,15 @@ server.use(jsonServer.bodyParser)
 
 server.post("/auth/registration", (req, res) => {
   console.log("POST /auth/registration", req.body)
+
+  res.status(200).json({
+    message: "Success",
+    userId: Date.now(),
+  })
+})
+
+server.post("/auth/login", (req, res) => {
+  console.log("POST /auth/login", req.body)
 
   res.status(200).json({
     message: "Success",
