@@ -25,6 +25,8 @@ import { LoginRequest } from "@/src/features/auth/api/authApi.types"
 import { toast } from "react-toastify"
 import { LoginSchema } from "@/src/features/auth/utils/LoginSchema"
 import { useLoginMutation } from "@/src/features/auth/api/authApi"
+import { useRouter } from "next/navigation"
+import { PATH } from "@/src/shared/config/routes"
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -66,6 +68,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 export default function Login() {
   const [open, setOpen] = useState(false)
   const [login] = useLoginMutation()
+  const router = useRouter()
 
   const {
     reset,
@@ -84,11 +87,11 @@ export default function Login() {
   const onSubmit = async (data: LoginRequest) => {
     try {
       await login(data).unwrap()
-      toast.success("Successfully logined")
+      router.push(PATH.ROOT)
     } catch (error: unknown) {
       if (error instanceof Error) toast.error(error.message)
       else if (typeof error === "string") toast.error(error)
-      else toast.error("Unknown error occurred")
+      else toast.error("Server error occurred")
     } finally {
       reset()
     }
@@ -184,7 +187,7 @@ export default function Login() {
 
           <Typography sx={{ textAlign: "center" }}>
             Don&apos;t have an account?{" "}
-            <Link href="/auth/registration" variant="body2" sx={{ alignSelf: "center" }}>
+            <Link href={PATH.AUTH.REGISTRATION} variant="body2" sx={{ alignSelf: "center" }}>
               Register
             </Link>
           </Typography>

@@ -22,6 +22,8 @@ import { RegisterRequest } from "@/src/features/auth/api/authApi.types"
 import { FormHelperText } from "@mui/material"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterSchema } from "@/src/features/auth/utils/RegisterSchema"
+import { useRouter } from "next/navigation"
+import { PATH } from "@/src/shared/config/routes"
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -63,6 +65,8 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 export default function Register() {
   const [register] = useRegisterMutation()
 
+  const router = useRouter()
+
   const {
     reset,
     control,
@@ -81,7 +85,8 @@ export default function Register() {
   const onSubmit = async (data: RegisterRequest) => {
     try {
       await register(data).unwrap()
-      toast.success("Successfully registered")
+      toast.success("Successfully registered!🥳🥳🥳")
+      router.push(PATH.AUTH.LOGIN)
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.error(error.message)
@@ -214,7 +219,7 @@ export default function Register() {
           </Button>
           <Typography sx={{ textAlign: "center" }}>
             Already have an account?{" "}
-            <Link href="/auth/login" variant="body2" sx={{ alignSelf: "center" }}>
+            <Link href={PATH.AUTH.LOGIN} variant="body2" sx={{ alignSelf: "center" }}>
               Login
             </Link>
           </Typography>

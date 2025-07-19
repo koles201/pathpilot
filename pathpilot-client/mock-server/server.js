@@ -1,5 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const jsonServer = require("json-server")
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { PATH } = require("../src/shared/config/routes")
 
 const server = jsonServer.create()
 const router = jsonServer.router("db.json")
@@ -8,18 +10,14 @@ const middlewares = jsonServer.defaults()
 server.use(middlewares)
 server.use(jsonServer.bodyParser)
 
-server.post("/auth/registration", (req, res) => {
-  console.log("POST /auth/registration", req.body)
-
+server.post(PATH.AUTH.REGISTRATION, (req, res) => {
   res.status(200).json({
     message: "Success",
     userId: Date.now(),
   })
 })
 
-server.post("/auth/login", (req, res) => {
-  console.log("POST /auth/login", req.body)
-
+server.post(PATH.AUTH.LOGIN, (req, res) => {
   res.status(200).json({
     message: "Success",
     userId: Date.now(),
