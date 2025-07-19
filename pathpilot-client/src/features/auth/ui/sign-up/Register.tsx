@@ -24,6 +24,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterSchema } from "@/src/features/auth/utils/RegisterSchema"
 import { useRouter } from "next/navigation"
 import { PATH } from "@/src/shared/config/routes"
+import CssBaseline from "@mui/material/CssBaseline"
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -102,6 +103,7 @@ export default function Register() {
 
   return (
     <SignUpContainer direction="column" justifyContent="space-between">
+      <CssBaseline enableColorScheme />
       <Card variant="outlined">
         <Typography component="h1" variant="h4" sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}>
           Register

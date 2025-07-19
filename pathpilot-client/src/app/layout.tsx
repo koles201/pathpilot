@@ -4,7 +4,6 @@ import { ReduxProvider } from "@/src/app/providers/ReduxProvider"
 import { Suspense } from "react"
 import { Loader } from "@/src/shared/ui/loader"
 import AppTheme from "@/src/shared/ui/sharedTheme/AppTheme"
-import CssBaseline from "@mui/material/CssBaseline"
 import * as React from "react"
 
 export const metadata: Metadata = {
@@ -20,9 +19,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body>
         <ReduxProvider>
-          <ToastSnackbar />
+          <ToastSnackbar/>
           <AppTheme>
-            <CssBaseline enableColorScheme />
             <Suspense fallback={<Loader />}>{children}</Suspense>
           </AppTheme>
         </ReduxProvider>

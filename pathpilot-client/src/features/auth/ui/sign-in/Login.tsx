@@ -17,6 +17,7 @@ import {
   Card as MuiCard,
 } from "@mui/material"
 import { styled } from "@mui/material/styles"
+import CssBaseline from "@mui/material/CssBaseline"
 import { Controller, useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import ForgotPassword from "./components/ForgotPassword"
@@ -102,6 +103,7 @@ export default function Login() {
 
   return (
     <SignInContainer direction="column" justifyContent="space-between">
+      <CssBaseline enableColorScheme />
       <Card variant="outlined">
         <Typography component="h1" variant="h4" sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}>
           Login
