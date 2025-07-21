@@ -1,9 +1,9 @@
 "use client"
 
-import Register from "@/src/features/auth/ui/sign-up/Register"
+import { RegistrationForm } from "@/src/features/auth/ui/RegistrationForm"
 
 const Registration = () => {
-  return <Register />
+  return <RegistrationForm />
 }
 
 export default Registration

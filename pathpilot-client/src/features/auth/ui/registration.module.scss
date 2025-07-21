@@ -1,0 +1,49 @@
+.formContainer {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #fdfdfd;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+
+.submitButton {
+  width: 100%;
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submitButton:hover {
+  background-color: #0059c1;
+}
+
+.errorMassage{
+  font-size: 0.875rem;
+  color: #cc1439;
+  white-space: nowrap;
+  position: relative;
+}

@@ -1,12 +1,7 @@
 export type RegisterRequest = {
-  name: string
+  userName: string
   email: string
   password: string
-  agreeToTerms: boolean
-}
-
-export type LoginRequest = {
-  email: string
-  password: string
-  rememberMe?: boolean
+  passwordConfirmation?: string
+  agreeToTerms?: boolean
 }

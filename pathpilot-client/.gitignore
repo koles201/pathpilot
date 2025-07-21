@@ -17,9 +17,6 @@
 /.next/
 /out/
 
-# mock-server
-/mock-server
-
 # production
 /build
 

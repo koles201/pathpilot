@@ -9,17 +9,6 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 })
 
-// базовые настройки от Next.js
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-
-  // собственная настройка для разрешения any
-  {
-    files: ["**/utils/**/*.ts"],
-    rules: {
-      "@typescript-eslint/no-explicit-any": "off",
-    },
-  },
-]
+const eslintConfig = [...compat.extends("next/core-web-vitals", "next/typescript")]
 
 export default eslintConfig
