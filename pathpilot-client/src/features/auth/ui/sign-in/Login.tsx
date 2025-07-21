@@ -5,16 +5,18 @@ import { useState } from "react"
 import {
   Box,
   Button,
+  Card as MuiCard,
   Checkbox,
   Divider,
   FormControl,
   FormControlLabel,
   FormLabel,
   Link,
+  Stack,
   TextField,
   Typography,
-  Stack,
-  Card as MuiCard,
+  InputAdornment,
+  IconButton,
 } from "@mui/material"
 import { styled } from "@mui/material/styles"
 import CssBaseline from "@mui/material/CssBaseline"
@@ -28,6 +30,9 @@ import { LoginSchema } from "@/src/features/auth/utils/LoginSchema"
 import { useLoginMutation } from "@/src/features/auth/api/authApi"
 import { useRouter } from "next/navigation"
 import { PATH } from "@/src/shared/config/routes"
+import { getErrorMessage } from "@/src/features/auth/utils/getErrorMessage"
+import Visibility from "@mui/icons-material/Visibility"
+import VisibilityOff from "@mui/icons-material/VisibilityOff"
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -68,6 +73,7 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 
 export default function Login() {
   const [open, setOpen] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [login] = useLoginMutation()
   const router = useRouter()
 
@@ -88,13 +94,10 @@ export default function Login() {
   const onSubmit = async (data: LoginRequest) => {
     try {
       await login(data).unwrap()
-      router.push(PATH.ROOT)
-    } catch (error: unknown) {
-      if (error instanceof Error) toast.error(error.message)
-      else if (typeof error === "string") toast.error(error)
-      else toast.error("Server error occurred")
-    } finally {
       reset()
+      router.push(PATH.ROOT)
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
 
@@ -143,12 +146,27 @@ export default function Login() {
                 <TextField
                   {...field}
                   id="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   fullWidth
                   autoComplete="current-password"
                   variant="outlined"
                   error={!!errors.password}
                   helperText={errors.password?.message}
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            onMouseDown={(e) => e.preventDefault()}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
                 />
               )}
             />

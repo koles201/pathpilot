@@ -19,12 +19,16 @@ import { FacebookIcon, GoogleIcon } from "./components/CustomIcons"
 import { toast } from "react-toastify"
 import { useRegisterMutation } from "@/src/features/auth/api/authApi"
 import { RegisterRequest } from "@/src/features/auth/api/authApi.types"
-import { FormHelperText } from "@mui/material"
+import { FormHelperText, IconButton, InputAdornment } from "@mui/material"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { RegisterSchema } from "@/src/features/auth/utils/RegisterSchema"
 import { useRouter } from "next/navigation"
 import { PATH } from "@/src/shared/config/routes"
 import CssBaseline from "@mui/material/CssBaseline"
+import { getErrorMessage } from "@/src/features/auth/utils/getErrorMessage"
+import { useState } from "react"
+import Visibility from "@mui/icons-material/Visibility"
+import VisibilityOff from "@mui/icons-material/VisibilityOff"
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -66,6 +70,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 export default function Register() {
   const [register] = useRegisterMutation()
 
+  const [showPassword, setShowPassword] = useState(false)
   const router = useRouter()
 
   const {
@@ -87,17 +92,10 @@ export default function Register() {
     try {
       await register(data).unwrap()
       toast.success("Successfully registered!🥳🥳🥳")
-      router.push(PATH.AUTH.LOGIN)
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        toast.error(error.message)
-      } else if (typeof error === "string") {
-        toast.error(error)
-      } else {
-        toast.error("Unknown error occurred")
-      }
-    } finally {
       reset()
+      router.push(PATH.AUTH.LOGIN)
+    } catch (error) {
+      toast.error(getErrorMessage(error))
     }
   }
 
@@ -118,7 +116,6 @@ export default function Register() {
             <Controller
               name="name"
               control={control}
-              rules={{ required: "Name is required." }}
               render={({ field }) => (
                 <TextField
                   {...field}
@@ -138,13 +135,6 @@ export default function Register() {
             <Controller
               name="email"
               control={control}
-              rules={{
-                required: "Please enter a valid email address.",
-                pattern: {
-                  value: /\S+@\S+\.\S+/,
-                  message: "Please enter a valid email address.",
-                },
-              }}
               render={({ field }) => (
                 <TextField
                   {...field}
@@ -164,24 +154,32 @@ export default function Register() {
             <Controller
               name="password"
               control={control}
-              rules={{
-                required: "Password must be at least 6 characters long.",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters long.",
-                },
-              }}
               render={({ field }) => (
                 <TextField
                   {...field}
                   id="password"
                   placeholder="••••••"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   fullWidth
                   error={!!errors.password}
                   helperText={errors.password?.message}
                   autoComplete="new-password"
                   color={errors.password ? "error" : "primary"}
+                  slotProps={{
+                    input: {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={() => setShowPassword((prev) => !prev)}
+                            onMouseDown={(e) => e.preventDefault()}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    },
+                  }}
                 />
               )}
             />
@@ -190,7 +188,6 @@ export default function Register() {
             <Controller
               name="agreeToTerms"
               control={control}
-              rules={{ required: "You must agree to the terms" }}
               render={({ field }) => (
                 <FormControlLabel
                   control={<Checkbox {...field} checked={field.value} color="primary" />}

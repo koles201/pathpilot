@@ -11,10 +11,8 @@ export const RegisterSchema = z.object({
 
   email: EmailSchema,
   password: PasswordSchema,
-  agreeToTerms: z.literal(true).or(
-    z.boolean().refine((val) => val === true, {
-      message: "You must agree to the Terms & Conditions",
-    }),
-  ),
+  agreeToTerms: z.boolean().refine((val) => val === true, {
+    message: "You must agree to the Terms & Conditions",
+  }),
 })
 export type SignupSchemaType = z.infer<typeof RegisterSchema>
