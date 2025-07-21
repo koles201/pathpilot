@@ -10,6 +10,6 @@ export const PasswordSchema = z
   .refine((password) => /[0-9]/.test(password), {
     message: "Password must contain at least one number.",
   })
-  .refine((password) => /[!\"#$%&'()*+,\-./:;<=>?@[\]^_`{|}~]/.test(password), {
+  .refine((password) => /[!"#$%&'()*+,\-.\/:;<=>?@[\]^_`{|}~]/.test(password), {
     message: "Password must contain at least one special character.",
   })

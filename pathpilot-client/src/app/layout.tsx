@@ -3,6 +3,8 @@ import { ToastSnackbar } from "@/src/shared/ui/toastSnackbar"
 import { ReduxProvider } from "@/src/app/providers/ReduxProvider"
 import { Suspense } from "react"
 import { Loader } from "@/src/shared/ui/loader"
+import AppTheme from "@/src/shared/ui/sharedTheme/AppTheme"
+import * as React from "react"
 
 export const metadata: Metadata = {
   title: "Pathpilot",
@@ -17,8 +19,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body>
         <ReduxProvider>
-          <ToastSnackbar />
-          <Suspense fallback={<Loader />}>{children}</Suspense>
+          <ToastSnackbar/>
+          <AppTheme>
+            <Suspense fallback={<Loader />}>{children}</Suspense>
+          </AppTheme>
         </ReduxProvider>
       </body>
     </html>
