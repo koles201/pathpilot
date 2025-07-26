@@ -1,7 +1,10 @@
 
+using FluentValidation;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Pathpilot.Infrastructure.Persistence;
+using Pathpilot.Application.Common.Behaviors;
 using Pathpilot.Application.Interfaces.Persistence;
+using Pathpilot.Infrastructure.Persistence;
 
 namespace Pathpilot.Api
 {
@@ -20,11 +23,18 @@ namespace Pathpilot.Api
 
             builder.Services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddValidatorsFromAssembly(typeof(Application.AssemblyReference).Assembly);
             builder.Services.AddMediatR(cfg =>
-                cfg.RegisterServicesFromAssembly(typeof(Application.AssemblyReference).Assembly));
+            {
+                cfg.RegisterServicesFromAssembly(typeof(Application.AssemblyReference).Assembly);
 
+                cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            });
+
+            builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+            builder.Services.AddProblemDetails();
             var app = builder.Build();
-
+            
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
@@ -32,10 +42,11 @@ namespace Pathpilot.Api
                 app.UseSwaggerUI();
             }
 
+            app.UseExceptionHandler();
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 

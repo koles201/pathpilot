@@ -17,8 +17,8 @@ namespace Pathpilot.Api.Controllers
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(
-            [FromBody] RegisterUserCommand command,
-            CancellationToken cancellationToken)
+                [FromBody] RegisterUserCommand command,
+                CancellationToken cancellationToken)
         {
             await _mediator.Send(command, cancellationToken);
 

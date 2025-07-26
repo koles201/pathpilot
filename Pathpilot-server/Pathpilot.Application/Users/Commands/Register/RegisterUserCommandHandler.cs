@@ -5,7 +5,7 @@ using Pathpilot.Domain.Entities;
 
 namespace Pathpilot.Application.Users.Commands.Register;
 
-internal sealed class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand>
+public sealed class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Guid>
 {
     private readonly IApplicationDbContext _dbContext;
 
@@ -14,7 +14,7 @@ internal sealed class RegisterUserCommandHandler : IRequestHandler<RegisterUserC
         _dbContext = dbContext;
     }
 
-    public async Task Handle(RegisterUserCommand request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         var isEmailTaken = await _dbContext.Users
             .AnyAsync(u => u.Email == request.Email, cancellationToken);
@@ -49,5 +49,7 @@ internal sealed class RegisterUserCommandHandler : IRequestHandler<RegisterUserC
 
         _dbContext.Users.Add(user);
         await _dbContext.SaveChangesAsync(cancellationToken);
+
+        return user.Id;
     }
 }
