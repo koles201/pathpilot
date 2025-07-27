@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pathpilot.Application.Users.Commands.Register;
+using Pathpilot.Application.Users.Queries.Login;
 
 namespace Pathpilot.Api.Controllers
 {
@@ -24,5 +25,21 @@ namespace Pathpilot.Api.Controllers
 
             return Ok();
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(
+                [FromBody] LoginUserQuery query,
+                CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(query, cancellationToken);
+
+            if (result.IsError)
+            {
+                return Unauthorized(result.Errors);
+            }
+
+            return Ok(result.Value);
+        }
+
     }
 }

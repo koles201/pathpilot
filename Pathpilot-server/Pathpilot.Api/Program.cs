@@ -4,7 +4,9 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Pathpilot.Application.Common.Behaviors;
 using Pathpilot.Application.Interfaces.Persistence;
+using Pathpilot.Application.Interfaces.Security;
 using Pathpilot.Infrastructure.Persistence;
+using Pathpilot.Infrastructure.Security;
 
 namespace Pathpilot.Api
 {
@@ -31,8 +33,10 @@ namespace Pathpilot.Api
                 cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             });
 
+            builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddProblemDetails();
+
             var app = builder.Build();
             
             // Configure the HTTP request pipeline.
