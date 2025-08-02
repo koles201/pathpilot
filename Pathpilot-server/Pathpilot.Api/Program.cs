@@ -23,7 +23,7 @@ namespace Pathpilot.Api
                 options.AddPolicy(name: MyAllowSpecificOrigins,
                                   policy =>
                                   {
-                                      policy.WithOrigins("http://localhost:3000")
+                                      policy.AllowAnyOrigin()
                                             .AllowAnyHeader()
                                             .AllowAnyMethod();
                                   });
@@ -57,8 +57,9 @@ namespace Pathpilot.Api
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                app.UseCors(MyAllowSpecificOrigins);
             }
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseExceptionHandler();
 
