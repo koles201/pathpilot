@@ -45,7 +45,7 @@ namespace Pathpilot.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseCors(policy => policy.WithOrigins("http://localhost:5173")
+            app.UseCors(policy => policy.AllowAnyOrigin()
                                         .AllowAnyMethod()
                                         .AllowAnyHeader());
             app.UseExceptionHandler();
