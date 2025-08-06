@@ -43,11 +43,12 @@ namespace Pathpilot.Api
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+
+                app.UseCors(policy => policy.AllowAnyOrigin()
+                            .AllowAnyMethod()
+                            .AllowAnyHeader());
             }
 
-            app.UseCors(policy => policy.AllowAnyOrigin()
-                                        .AllowAnyMethod()
-                                        .AllowAnyHeader());
             app.UseExceptionHandler();
 
             app.UseHttpsRedirection();
